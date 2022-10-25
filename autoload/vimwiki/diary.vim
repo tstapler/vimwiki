@@ -33,9 +33,9 @@ endfunction
 
 function! vimwiki#diary#diary_date_link(...) abort
   if a:0
-    return strftime('%Y-%m-%d', a:1)
+    return strftime('%Y_%m_%d', a:1)
   else
-    return strftime('%Y-%m-%d')
+    return strftime('%Y_%m_%d')
   endif
 endfunction
 
@@ -43,7 +43,7 @@ endfunction
 function! s:get_position_links(link) abort
   let idx = -1
   let links = []
-  if a:link =~# '^\d\{4}-\d\d-\d\d'
+  if a:link =~# '^\d\{4}_\d\d_\d\d'
     let links = map(vimwiki#diary#get_diary_files(), 'fnamemodify(v:val, ":t:r")')
     " include 'today' into links
     if index(links, vimwiki#diary#diary_date_link()) == -1
@@ -158,7 +158,7 @@ endfunction
 
 
 function! vimwiki#diary#get_diary_files() abort
-  let rx = '^\d\{4}-\d\d-\d\d'
+  let rx = '^\d\{4}_\d\d_\d\d'
   let s_files = glob(vimwiki#vars#get_wikilocal('path').
         \ vimwiki#vars#get_wikilocal('diary_rel_path').'*'.vimwiki#vars#get_wikilocal('ext'))
   let files = split(s_files, '\n')
@@ -431,6 +431,6 @@ function! vimwiki#diary#calendar_sign(day, month, year) abort
   let day = s:prefix_zero(a:day)
   let month = s:prefix_zero(a:month)
   let sfile = vimwiki#vars#get_wikilocal('path').vimwiki#vars#get_wikilocal('diary_rel_path').
-        \ a:year.'-'.month.'-'.day.vimwiki#vars#get_wikilocal('ext')
+        \ a:year.'_'.month.'_'.day.vimwiki#vars#get_wikilocal('ext')
   return filereadable(expand(sfile))
 endfunction
