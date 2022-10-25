@@ -409,7 +409,7 @@ function! vimwiki#diary#calendar_action(day, month, year, week, dir) abort
   let day = s:prefix_zero(a:day)
   let month = s:prefix_zero(a:month)
 
-  let link = a:year.'-'.month.'-'.day
+  let link = a:year.'_'.month.'_'.day
   if winnr('#') == 0
     if a:dir ==? 'V'
       vsplit
